@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/blogprototype/!svn/ver/4/trunk/application/views/scripts/authtodo
+END
+preview.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/blogprototype/!svn/ver/6/trunk/application/views/scripts/authtodo/preview.phtml
+END
+replylist.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/blogprototype/!svn/ver/7/trunk/application/views/scripts/authtodo/replylist.phtml
+END
+reply.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/blogprototype/!svn/ver/9/trunk/application/views/scripts/authtodo/reply.phtml
+END
+postlist.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/blogprototype/!svn/ver/7/trunk/application/views/scripts/authtodo/postlist.phtml
+END
+post.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/blogprototype/!svn/ver/6/trunk/application/views/scripts/authtodo/post.phtml
+END

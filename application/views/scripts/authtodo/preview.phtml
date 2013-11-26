@@ -1,0 +1,16 @@
+<?php 
+$auth = Zend_Auth::getInstance();
+?>
+<div class="panel panel-default">
+  			<div class="panel-body">
+  			<?php if($this->blog_data){
+  				?>
+  			<h5 style='float:right'><?=$this->format_date?></h5>
+  			<h3><?=$this->blog_data->mb_title?></h3>
+  			
+  			<hr>
+  			<span><?=$this->blog_data->mb_body?></span>
+  			<?php }?>
+		</div>	
+	</div>
+</div>

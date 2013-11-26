@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/blogprototype/!svn/ver/3/trunk/application/models
+END
+MicroBlog.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/blogprototype/!svn/ver/9/trunk/application/models/MicroBlog.php
+END
+MicroBlogPost.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/blogprototype/!svn/ver/7/trunk/application/models/MicroBlogPost.php
+END
+TagArticleRel.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/blogprototype/!svn/ver/9/trunk/application/models/TagArticleRel.php
+END
+MemberMain.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/blogprototype/!svn/ver/3/trunk/application/models/MemberMain.php
+END
+TagMain.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/blogprototype/!svn/ver/3/trunk/application/models/TagMain.php
+END
+MicroBlogCategory.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/blogprototype/!svn/ver/9/trunk/application/models/MicroBlogCategory.php
+END

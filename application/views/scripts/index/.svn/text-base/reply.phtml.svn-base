@@ -1,0 +1,157 @@
+<?php $this->headScript()->appendFile('ckeditor/ckeditor.js'); ?>
+<?php $this->headScript()->appendFile('ckfinder/ckfinder.js'); ?>
+<?php $this->headScript()->appendFile('js/reply.js'); ?>
+<?php $auth = Zend_Auth::getInstance();?>
+<div style='width:70%;float:left;'>
+<div class="panel panel-default">
+		<div class="panel-body">
+			<form role="form" method="post" id='add_reply_form' rel='<?=($this->blog_data)?$this->blog_data->mb_id:''?>' page="<?=$this->page ?>">
+			  		<h2 >Post Reply</h2>▷&nbsp;<span id='post_type' class="text-info"><?php if($this->blog_post_data){?>Edit Reply<?php }else{?>Add Reply<?php }?></span>		
+				<div class="row">
+					<div class="col-md-12"><label for="exampleInputEmail1">Title:  <a href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$this->blog_data->mb_id),null,true) ?>"><?=($this->blog_data)?$this->blog_data->mb_title:''?></a></label><hr></div>
+					<div class="col-md-12"><label for="exampleInputEmail1" id='top'>Content  </label></div>
+					<div class="col-md-12"><div class="center-block"><textarea class="form-control" id='ck_body'></textarea><hr></div></div>
+					<div class="col-xs-6 col-sm-2">
+						<label for="exampleInputEmail1">Nickname</label>
+						<div style='width:300px'>
+							<input type="text" class="form-control" id="nickname" placeholder="Enter Nickname" value="<?=(isset($this->blog_post_data) && $this->blog_post_data->user_name != '')?$this->blog_post_data->user_name:'' ?>" <?=(isset($this->blog_post_data) && $this->blog_post_data->mm_id != 0)?'readonly="readonly"':'' ?>>
+							
+						</div>
+					</div>
+  					<div class="col-xs-6 col-sm-4"><input type='checkbox' id ='member' <?=( isset($this->blog_post_data) && $this->blog_post_data->mm_id != 0)?'checked="checked"':'' ?>>Using membership</div>
+  					</div><hr>
+  					<div class="row">
+  						<div class="col-xs-6 col-sm-4"><label for="exampleInputEmail1">Private Message</label></div>
+  						<div class="col-xs-6 col-sm-1"><input type="checkbox" id='secrce' <?=( isset($this->blog_post_data) && $this->blog_post_data->mbp_secret == 1)?'checked':'' ?>></div>
+  					</div>
+  					<hr>
+  					<div class="row">
+  						<div class="col-md-12"><dir style='text-align:center'>
+	  						<button type="button" class="btn btn-primary" id='add_reply_btn' rel="<?=( isset($this->blog_post_data))?$this->blog_post_data->mbp_id:'';?>">Save</button>
+	  						</dir></div>
+  					</div>
+  			</form>
+  			<hr>
+  			<div class="panel panel-default">
+				<div class="panel-body">
+				    <textarea class="form-control"rows="8" id='introduction_col'></textarea>
+				    <div class="col-md-12">
+				    	<dir style='text-align:center'>
+	  						<button type="button" class="btn btn-primary" id='introduction_btn'>Introduction</button>
+	  					</dir>
+	  				</div>
+				</div>
+			</div>
+  			<hr>
+  			<h2 >Review Article</h2>
+  			<?php if($this->page ==1){?>
+			<div class="panel panel-default">
+				<div class="panel-body">
+		  			<div style='height:600px;overflow: scroll;'><?=($this->blog_data)?$this->blog_data->mb_body:''?></div>
+		  		</div>
+			</div>
+			<?php }?>
+			<?php if($this->blog_reply){
+					?>
+			<div class="panel panel-default">
+  				<div class="panel-body">
+  					<div style='height:600px;overflow: scroll;'>
+  			<?php $nub =($this->page == 1)?1:($this->page-1)*5+1;
+				foreach ($this->blog_reply as $val){?>
+  							<div class="list-group">
+			  					<div class="list-group-item">
+			  						<div class="row">
+										<div class="col-md-11"><span style='color:#666'>by:<?=$val['user_name']?> wrote</span></div>
+										<div class="col-md-4"><span style='color:#666'><?=$val['mbp_created'].' #'.$nub?></span></div>
+									</div>
+								<hr>
+							<div class="row">
+								<div class="col-md-12"><span style='color:#666'><?=$val['mbp_body']?></span></div>
+							</div>
+						</div>
+					</div>
+					<?php }?>
+				</div>
+			</div>
+		</div>
+		<?php }?>
+	</div>
+</div>
+</div>
+<div style='width:28%;float:left;margin-left:10px;'  id='left_block'>
+		<div class="panel panel-danger">
+			<div class="panel-body">
+			<div style='text-align:center'>
+			<h4>Hi!&nbsp;&nbsp;<?=(isset($auth->getStorage()->read()->mm_id)?$auth->getStorage()->read()->mm_display_name:'Anonymous')?></h4>
+				<button type="button" class="btn btn-primary btn-lg" name='addpost'>Add Post</button>
+			</div>
+		   	<form class="navbar-form navbar-left" role="search" method="post" action="index/search">
+	      		<div class="form-group">
+	        		<input type="text" class="form-control input-sm" placeholder="Search Post Title" name='keyword'>
+	      		</div>
+	      			<button type="submit" class="btn btn-default btn-sm">Submit</button>
+	    	</form>
+			</div>
+		</div>
+	<div class="panel-body">
+			<h4>Recent articles response</h4>
+			<ul class="list-group">
+				<?php if($this->recent_data){
+						foreach ($this->recent_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>">
+					  <li class="list-group-item">
+					    
+					    
+					    <?=$val['mbp_body'] ?><br>
+					    <h6 style='text-align:right'>--<?=$val['mb_title'] ?></h6>
+					    <span class="badge"><?=$val['mbp_created'] ?> by~<?=$val['user_name'] ?></span><br>
+					  </li>
+				   </a>
+				  <?php }}?>
+			</ul>
+	</div>
+		<div class="panel-body">
+			<h4>Popular Articles</h4>
+			<ul class="list-group">
+				<?php if($this->hot_data){
+						foreach ($this->hot_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>">
+					  <li class="list-group-item">
+					    <span class="badge"><?=$val['mb_viewed'] ?></span>
+					    <?=$val['mb_title'] ?>
+					  </li>
+				  </a>
+				  <?php }}?>
+			</ul>
+	</div>
+		<div class="panel-body">
+			<h4>Articles Category</h4>
+			<ul class="list-group">
+				<?php if($this->blog_ca_data){
+						foreach ($this->blog_ca_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'search','ca'=>$val['mbc_id']),null,true) ?>">
+					  <li class="list-group-item">
+					  	<span class="badge"><?=$val['mbc_count_nub'] ?></span>
+					    <?=$val['mbc_name'] ?>
+					  </li>
+				  </a>
+				  <?php }}?>
+			</ul>
+		</div>
+		<div class="panel-body">
+			<h4>Articles Tags</h4>
+				<?php if($this->tag_data){
+					$count = count($this->tag_data);
+					$nub = 1;
+						foreach ($this->tag_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'search','tag'=>$val['tm_id']),null,true) ?>">
+					<?php $str='';if($nub!=$count){$str=',';}?>
+					<?=$val['tm_name'].$str ?>
+				  </a>
+				  <?php $nub++;}}?>
+		</div>
+</div>

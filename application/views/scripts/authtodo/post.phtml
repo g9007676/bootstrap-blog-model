@@ -1,0 +1,116 @@
+<?php $this->headScript()->appendFile('ckeditor/ckeditor.js'); ?>
+<?php $this->headScript()->appendFile('ckfinder/ckfinder.js'); ?>
+<?php $this->headScript()->appendFile('js/jquery.form.min.js'); ?>
+<?php $this->headScript()->appendFile('js/post.js'); ?>
+<?php $this->headScript()->appendFile('js/ajaxfileupload.js');
+	$auth = Zend_Auth::getInstance();
+?>
+<div style='float:left'>
+			<h4>Hi!&nbsp;&nbsp;<?=$auth->getStorage()->read()->mm_display_name ?></h4>
+			<div style='display:<?=($this->blog_data)?'block':'none'; ?>;float:left;width:250px' id='delete_div'>
+				<a class="text-warning" name='change_add_post_btn'  href='<?=$this->url(array('controller'=>'authtodo','action'=>'post'),null,true) ?>'>Add the this Post&nbsp;|</a>
+				<a class="text-warning" name='delete_post_btn' rel ='4'>Delete the this Post&nbsp;|</a>
+			</div>
+			<div>
+				<a class="text-warning" name='delete_post_btn' rel ='1'>Save as Draft&nbsp;|</a><a class="text-warning" rel ='1'>&nbsp;Preview</a>&nbsp;&nbsp;▷&nbsp;<span id='post_type' class="text-info"><?php if($this->blog_data){?>Edit Post<?php }else{?>Add Post<?php }?></span>
+			</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form role="form" method="post" id='add_post_form' rel ='<?=($this->blog_data)?$this->blog_data->mb_id:'';?>' >
+	  			<div>
+	    			<label for="exampleInputEmail1">Post title</label>
+	    			<input type="email" class="form-control" placeholder="Enter email" id='email_cols' value='<?=($this->blog_data)?$this->blog_data->mb_title:''; ?>'>
+	  			</div>
+	  			<div>
+	    			<label for="exampleInputEmail1">Content</label>
+	    			<textarea class="form-control" id='ck_body'></textarea>
+	  			</div>
+	  			<dir style='text-align:center'>
+	  				<button type="button" class="btn btn-primary" id='add_post_btn'>Save and publish</button>
+	  			</dir>
+			</form>
+		</div>
+	</div>
+</div>
+<div style='float:left; margin-left:33px;width:260px;text-align:center;height:60px'>
+	<a href='<?=$this->url(array('controller'=>'authtodo','action'=>'postlist'),null,true) ?>'class="btn btn-primary btn-lg">Look My Post List</a>
+</div>
+<div style='float:left; margin-left:33px;width:260px'>
+	<div class="panel panel-warning">
+	<div class="panel-heading">Choose Post Category</div>
+	  <div class="panel-body">
+	    <form class="form-inline" role="form" method="post" id='add_category_form'>
+		  <div class="">
+		    <input type="text" class="form-control" id="exampleInputPassword2" placeholder='Add Post Category'>
+		  </div>
+		  <button style='margin-top:10px;' type="button" class="btn btn-warning" id='add_category_btn'>save</button>
+		</form>
+	  </div>
+	   <div class="panel-body">
+	   <form class="form-inline" role="form" method="post" id='category_list_form'>
+	   <?php if($this->category_data){
+	   			foreach ($this->category_data as $val){
+	   	?>
+	   	<div class="radio">
+		  <label>
+		    <input type="radio" name="mbc_name" id="optionsRadios1"  <?=($this->blog_data && $this->blog_data->mbc_id == $val['mbc_id'])?'checked':'';?> value="<?=$val['mbc_id'] ?>">&nbsp;&nbsp;<?=$val['mbc_name']?></label>
+		</div><br>
+  		<?php }}?>
+  		</form>
+<!--  		 <button  style="margin-top:10px;display:<?=(!$this->category_data)?'none':'';?>" type="button" class="btn btn-danger" id="delete_category_btn">Delete</button>-->
+	  </div>
+	</div>
+</div>
+<div style='float:left; margin-left:33px;width:260px'>
+	<div class="panel panel-info">
+	<div class="panel-heading">Choose Post Tag</div>
+	  <div class="panel-body">
+	    <form class="form-inline" role="form" method="post" id='add_tag_form'>
+		  <div class="">
+		    <input type="text" class="form-control" id="exampleInputPassword2" placeholder='Add Post Tag'>
+		  </div>
+		  <button style='margin-top:10px;' type="button" class="btn btn-info" id='add_tag_btn'>save</button>
+		</form>
+	  </div>
+	  <div class="panel-body">
+	  <h5>Articles can be used tags</h5>
+	     <form class="form-inline" role="form" method="post"  id='tag_list_form'>
+	     <?php if($this->tag_data){
+	   			foreach ($this->tag_data as $val){
+	   	?>
+    		<div style='float:left;line-height:24px'><?=$val['tm_name'] ?><button type="button" class="close" data-dismiss="alert" aria-hidden="true" value='<?=$val['tm_id'] ?>'>&times;</button></div>
+		<?php }}?>
+    	</form>
+    	</div>
+    	<div class="panel-body">
+    	<hr>
+    	<h5>Articles existing tags</h5>
+    	<div id ='rel_tag_list'><?php $total=''; if($this->blog_data && !empty($this->tag_rel_data)){
+			  $len = count($this->tag_rel_data);
+			  foreach($this->tag_rel_data as $key=>$val){
+			  	$ston= ($key+1 != $len)?',':''; 
+				$str = $val['tm_name'].$ston;
+				$total.=$str;
+			  }}?><span><?=$total ?></span>
+		</div>
+	  </div>
+	</div>
+</div>
+<div style='float:left; margin-left:33px;width:260px'>
+	<div class="panel panel-success">
+	<div class="panel-heading">Add Post Cover</div>
+	  <div class="panel-body">
+	    <form class="form-inline" role="form" method="post" id='add_tag_form'>
+		   <div>
+    			<label for="exampleInputFile">File input</label>
+    			<input type="file" id="uploadfile" name='fileBtn' rel=''>
+    			<h6>Please upload 300 x 200 sized pictures</h6>
+    			<div style='text-align:center'>
+    				<img src="<?=($this->blog_data)?'images/blog_cover/'.$this->blog_data->mb_cover:'images/index_img/blog_cover_marks.gif';?>" width='300px' height='200px' alt="blog_cover" id='display_img' class="img-thumbnail">
+    				<P id='file_name'><?=($this->blog_data)?$this->blog_data->mb_cover:'';?></P>
+    			</div>
+  			</div>
+		</form>
+	  </div>
+	</div>
+</div>

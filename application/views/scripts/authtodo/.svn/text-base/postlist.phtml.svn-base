@@ -1,0 +1,51 @@
+<?php $this->headScript()->appendFile('ckeditor/ckeditor.js'); ?>
+<?php $this->headScript()->appendFile('ckfinder/ckfinder.js'); ?>
+<?php $this->headScript()->appendFile('js/postlist.js'); 
+	$auth = Zend_Auth::getInstance();
+	$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+?>
+<div style='text-align:left;height:60px'>
+	<h4>Hi!&nbsp;&nbsp;<?=$auth->getStorage()->read()->mm_display_name ?></h4>
+	<a class="text-warning" href='<?=$this->url(array('controller'=>'authtodo','action'=>'post'),null,true) ?>' name='delete_post_btn'>Add Post</a>
+</div>
+
+<!--<div class="panel panel-default">-->
+<ul class="nav nav-tabs">
+  <li class="<?=($action == 'postlist')?'active':'';?>"><a href="<?=$this->url(array('controller'=>'authtodo','action'=>'postlist'),null,true)?>">Post Article</a></li>
+  <li><a href="<?=$this->url(array('controller'=>'authtodo','action'=>'replylist'),null,true) ?>">Reply</a></li>
+  <table class="table">
+    <tr><th>#</th><th style='width:55%'>Title</th><th style='width:15%'>Category</th><th style='width:10%'>Views</th><th style='width:15%'>Create Date</th></tr>
+    <?php if($this->blog_data){
+    	$nub = 1;
+    	foreach ($this->blog_data as $val){
+    	?>
+    <tr name = 'post_title' style='height:60px' rel="<?=$val['mb_id']?>">
+    	<td><?=$nub?></td>
+    	<td><?=$val['mb_title']?> ► <span class="text-primary"><?php
+    	if($val['mb_status'] == 1){
+    		$po_str = 'Draft';
+    	}
+    	if($val['mb_status'] == 2){
+    		$po_str = 'Audit';
+    	}
+    	if($val['mb_status'] == 3){
+    		$po_str = 'Release';
+    	}
+    	if($val['mb_status'] == 4){
+    		$po_str = 'Disabled';
+    	} 
+    	echo $po_str; 
+    	?></span>
+    	<div name='post_tool' >
+	    	<a class="text-warning" href="<?=$this->url(array('controller'=>'authtodo','action'=>'post','blog'=>$val['mb_id']),null,true) ?>">Editor&nbsp;|&nbsp;</a>
+	    	<a class="text-warning" name='delete_post_btn'>Delete&nbsp;|&nbsp;</a>
+	    	<a class="text-warning" href="<?=$this->url(array('controller'=>'authtodo','action'=>'preview','blog'=>$val['mb_id']),null,true) ?>">Preview</a>
+		</div>			
+		</td>
+		<td><?=$val['mbc_name']?></td>
+		<td><?=$val['mb_viewed']?></td>
+		<td><?=$val['mb_created']?></td>
+	</tr>
+	<?php $nub++;}}?>
+  </table>
+  </ul>

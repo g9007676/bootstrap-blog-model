@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base
+	href="http://<?php
+echo $_SERVER['HTTP_HOST'] . $this->baseUrl("/")?>" />
+<title><?php
+echo $this->title;
+?></title>
+<?=$this->headMeta()?>
+<?=$this->headLink()?>
+<link href="css/bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="css/bootstrap.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap.js"></script>
+<?=$this->headScript()?>
+</head>
+<body>
+	<div class="container">
+	 <div style='float:right;margin-top:10px;'>
+		  <form class="form-inline" role="form" name='login_form'>
+		 	 <div class="form-group">
+		    	<label class="sr-only" for="exampleInputEmail2">Email address</label>
+		    	<input  type="email" class="form-control input-sm" id="exampleInputEmail2" placeholder="Enter email" name='login_email'>
+		  	</div>
+		  	<div class="form-group">
+		    	<label class="sr-only" for="exampleInputPassword2">Password</label>
+		    	<input type="password" class="form-control input-sm" id="exampleInputPassword2" placeholder="Password"  name='login_password'>
+		  </div>
+		  <div class="checkbox">
+		    <label>
+		      <input type="checkbox" name='re_me' value = '1'> Remember me
+		    </label>
+		  </div>
+		  <button type="button" class="btn btn-default  btn-sm" id='login'>Sign in</button>
+		  <a name='signup' rel='1'>
+		  	<button type="button" class="btn btn-default  btn-sm btn-success">Sign up</button>
+		  </a>
+		</form>
+	 </div>
+	<div class="page-header">
+	 <div style='text-align:center;'><h2><a href=''>James's Blog Example</a><small>&nbsp;&nbsp;&nbsp;&nbsp;I made ​​an example of the use of bootstrap, I think it is very useful ,So join it</small></h2></div>
+	</div>
+		<?php
+			echo $this->layout()->content;
+		?>
+		<div id='alert_placeholder' style='bottom:2%;right:360px;position: fixed;width:300px;height:50px' rel='1'></div>
+	</div>	
+</body>
+</html>
+

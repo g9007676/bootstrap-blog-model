@@ -1,0 +1,108 @@
+<?php 
+$auth = Zend_Auth::getInstance();
+?>
+<div style='width:70%;float:left;'>
+  			<?php if($this->blog_data){
+  				foreach ($this->blog_data as $val){
+  					$src = ($val['mb_cover'] !='')?'images/blog_cover/'.$val['mb_cover']:'images/index_img/index_defut_cover.gif'?>
+  				<div class="media">
+				  <a class="pull-left" href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>">
+				    <img class="img-thumbnail media-object" src="<?=$src ?>" alt="blog_cover" width='100'>
+				  </a>
+				  <div class="media-body">
+				    <h4 class="media-heading"><?=$val['mb_title'] ?></h4>
+				    <?=$val['mb_body']?>
+				  </div>
+				  <div style ='text-align:right'>
+				  	<a href='<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>'>move</a>
+				  </div>
+				</div>
+			<?php }}?>
+			<div style ='text-align:center'>
+				<ul class="pagination">
+				<?php if($this->blog_pagnater['total']>10){
+							 if ($this->blog_pagnater['rows']){
+										echo $this->paginationControl($this->blog_pagnater['rows'], 'Sliding', 'page/page.phtml');
+									}
+								}
+				?>
+				</ul>
+			</div>  	
+</div>
+<div style='width:28%;float:left;margin-left:10px;' id='left_block'>
+		<div class="panel panel-danger">
+			<div class="panel-body">
+			<div style='text-align:center'>
+			<h4>Hi!&nbsp;&nbsp;<?=(isset($auth->getStorage()->read()->mm_id)?$auth->getStorage()->read()->mm_display_name:'Anonymous')?></h4>
+				<button type="button" class="btn btn-primary btn-lg" name='addpost'>Add Post</button>
+			</div>
+		   	<form class="navbar-form navbar-left" role="search" method="post" action="index/search">
+	      		<div class="form-group">
+	        		<input type="text" class="form-control input-sm" placeholder="Search Post Title" name='keyword'>
+	      		</div>
+	      			<button type="submit" class="btn btn-default btn-sm">Submit</button>
+	    	</form>
+			</div>
+		</div>
+	<div class="panel-body">
+			<h4>Recent articles response</h4>
+			<ul class="list-group">
+				<?php if($this->recent_data){
+						foreach ($this->recent_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>">
+					  <li class="list-group-item">
+					    
+					    
+					    <?=$val['mbp_body'] ?><br>
+					    <h6 style='text-align:right'>--<?=$val['mb_title'] ?></h6>
+					    <span class="badge"><?=$val['mbp_created'] ?> by~<?=$val['user_name'] ?></span><br>
+					  </li>
+				   </a>
+				  <?php }}?>
+			</ul>
+	</div>
+		<div class="panel-body">
+			<h4>Popular Articles</h4>
+			<ul class="list-group">
+				<?php if($this->hot_data){
+						foreach ($this->hot_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'view','blog'=>$val['mb_id']),null,true) ?>">
+					  <li class="list-group-item">
+					    <span class="badge"><?=$val['mb_viewed'] ?></span>
+					    <?=$val['mb_title'] ?>
+					  </li>
+				  </a>
+				  <?php }}?>
+			</ul>
+	</div>
+		<div class="panel-body">
+			<h4>Articles Category</h4>
+			<ul class="list-group">
+				<?php if($this->blog_ca_data){
+						foreach ($this->blog_ca_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'search','ca'=>$val['mbc_id']),null,true) ?>">
+					  <li class="list-group-item">
+					  	<span class="badge"><?=$val['mbc_count_nub'] ?></span>
+					    <?=$val['mbc_name'] ?>
+					  </li>
+				  </a>
+				  <?php }}?>
+			</ul>
+		</div>
+		<div class="panel-body">
+			<h4>Articles Tags</h4>
+				<?php if($this->tag_data){
+					$count = count($this->tag_data);
+					$nub = 1;
+						foreach ($this->tag_data as $val){
+					?>
+					<a href="<?=$this->url(array('controller'=>'index','action'=>'search','tag'=>$val['tm_id']),null,true) ?>">
+					<?php $str='';if($nub!=$count){$str=',';}?>
+					<?=$val['tm_name'].$str ?>
+				  </a>
+				  <?php $nub++;}}?>
+		</div>
+</div>

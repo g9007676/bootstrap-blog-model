@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/blogprototype/!svn/ver/3/trunk/application/views/scripts/index
+END
+register.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/blogprototype/!svn/ver/6/trunk/application/views/scripts/index/register.phtml
+END
+view.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/blogprototype/!svn/ver/9/trunk/application/views/scripts/index/view.phtml
+END
+search.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/blogprototype/!svn/ver/9/trunk/application/views/scripts/index/search.phtml
+END
+reply.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/blogprototype/!svn/ver/9/trunk/application/views/scripts/index/reply.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/blogprototype/!svn/ver/9/trunk/application/views/scripts/index/index.phtml
+END
